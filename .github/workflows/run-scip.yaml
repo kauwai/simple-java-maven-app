@@ -1,0 +1,17 @@
+name: Run SCIP-Java Indexer on code push to master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+       
+    - name: Run SCIP-Java Docker container
+      run:  docker run -v $(pwd):/sources --env JVM_VERSION=17 sourcegraph/scip-java:latest scip-java index
